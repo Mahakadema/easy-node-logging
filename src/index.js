@@ -65,27 +65,27 @@ export class Logger {
     }
 
     trace(...messages) {
-        return _log(this.manager.targets, messages, 6, this, this.manager.maxSourceLength)
+        return _log(this.manager.targets, messages, levelNums.TRACE, this, this.manager.maxSourceLength)
     }
 
     debug(...messages) {
-        return _log(this.manager.targets, messages, 5, this, this.manager.maxSourceLength);
+        return _log(this.manager.targets, messages, levelNums.DEBUG, this, this.manager.maxSourceLength);
     }
 
     info(...messages) {
-        return _log(this.manager.targets, messages, 4, this, this.manager.maxSourceLength);
+        return _log(this.manager.targets, messages, levelNums.INFO, this, this.manager.maxSourceLength);
     }
 
     warn(...messages) {
-        return _log(this.manager.targets, messages, 3, this, this.manager.maxSourceLength);
+        return _log(this.manager.targets, messages, levelNums.WARN, this, this.manager.maxSourceLength);
     }
 
     error(...messages) {
-        return _log(this.manager.targets, messages, 2, this, this.manager.maxSourceLength);
+        return _log(this.manager.targets, messages, levelNums.ERROR, this, this.manager.maxSourceLength);
     }
 
     fatal(...messages) {
-        return _log(this.manager.targets, messages, 1, this, this.manager.maxSourceLength);
+        return _log(this.manager.targets, messages, levelNums.FATAL, this, this.manager.maxSourceLength);
     }
 }
 
@@ -122,7 +122,7 @@ function _log(targets, messages, level, logger, maxSourceLength) {
                         throw e;
                     case "LOG":
                         if (!logger.destroyed) {
-                            return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { error: e, messages }], 2, logger, maxSourceLength);
+                            return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { error: e, messages }], levelNums.ERROR, logger, maxSourceLength);
                         }
                 }
             };
@@ -143,14 +143,6 @@ function _log(targets, messages, level, logger, maxSourceLength) {
  * @param {boolean} fullTimestamps
  */
 function format(messages, level, source, sourceColor, uniform, maxSourceLength, format, color, timestamp, fullTimestamps) {
-    const levels = {
-        1: "FATAL",
-        2: "ERROR",
-        3: "WARN",
-        4: "INFO",
-        5: "DEBUG",
-        6: "TRACE"
-    };
     const maxCategoryLength = 5;
     if (format === "JSON") {
         return stringifySafe({
@@ -171,32 +163,32 @@ function format(messages, level, source, sourceColor, uniform, maxSourceLength, 
         let msg = null;
         const styledSource = (color ? sourceColor : noColor)(source.padEnd(uniform * maxSourceLength));
         switch (level) {
-            case 6:
+            case levelNums.TRACE:
                 const tracePrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.blackBright("[") + chalk.gray(levels[level]) + chalk.blackBright("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.blackBright("[") + chalk.gray(styledSource) + chalk.blackBright("]") : "[" + styledSource + "]"} `;
                 const traceContent = (color ? chalk.gray : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = tracePrefix + traceContent.split("\n").join("\n" + tracePrefix);
                 break;
-            case 5:
+            case levelNums.DEBUG:
                 const debugPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.white("[") + chalk.whiteBright(levels[level]) + chalk.white("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}[${styledSource}] `;
                 const debugContent = (color ? chalk.gray : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = debugPrefix + debugContent.split("\n").join("\n" + debugPrefix);
                 break;
-            case 4:
+            case levelNums.INFO:
                 const infoPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.hex("#0B8E82")("[") + chalk.hex("#26E2D0")(levels[level]) + chalk.hex("#0B8E82")("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}[${styledSource}] `;
                 const infoContent = messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" ");
                 msg = infoPrefix + infoContent.split("\n").join("\n" + infoPrefix);
                 break;
-            case 3:
+            case levelNums.WARN:
                 const warnPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.yellow("[") + chalk.yellowBright(levels[level]) + chalk.yellow("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.yellow("[") + chalk.yellowBright(styledSource) + chalk.yellow("]") : "[" + styledSource + "]"} `;
                 const warnContent = (color ? chalk.yellowBright : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = warnPrefix + warnContent.split("\n").join("\n" + warnPrefix);
                 break;
-            case 2:
+            case levelNums.ERROR:
                 const errorPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.hex("#9F0000")("[") + chalk.hex("#FF0000")(levels[level]) + chalk.hex("#9F0000")("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.hex("#9F0000")("[") + chalk.hex("#FF0000")(styledSource) + chalk.hex("#9F0000")("]") : "[" + styledSource + "]"} `;
                 const errorContent = (color ? chalk.hex("#FF0000") : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = errorPrefix + errorContent.split("\n").join("\n" + errorPrefix);
                 break;
-            case 1:
+            case levelNums.FATAL:
                 const fatalPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${(color ? chalk.bgRedBright : noColor)(`${color ? chalk.black("[") + chalk.hex("#0F0F0F")(levels[level]) + chalk.black("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.black("[") + chalk.hex("#0F0F0F")(styledSource) + chalk.black("]") : "[" + styledSource + "]"} `)}`;
                 const fatalContent = (color ? chalk.hex("#0F0F0F").bgRedBright : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = fatalPrefix + fatalContent.split("\n").join("\n" + fatalPrefix);
@@ -363,17 +355,9 @@ function baseTargetOptions(target) {
 }
 
 function logLevelNum(level) {
-    const levels = {
-        FATAL: 1,
-        ERROR: 2,
-        WARN: 3,
-        INFO: 4,
-        DEBUG: 5,
-        TRACE: 6
-    };
-    if (level && levels[level] === undefined)
+    if (level && levelNums[level] === undefined)
         throw new TypeError(`log level must be one of 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'. Received ${level} instead`);
-    return levels[level] || levels.TRACE;
+    return levelNums[level] || levelNums.TRACE;
 }
 
 function logStyle(style) {
@@ -406,10 +390,22 @@ function errorPolicy(policy) {
     }
 }
 
-function url(url) {
-    if (url instanceof URL) {
-        return 
-    }
-}
-
 const noColor = v => v;
+
+const levels = {
+    1: "FATAL",
+    2: "ERROR",
+    3: "WARN",
+    4: "INFO",
+    5: "DEBUG",
+    6: "TRACE"
+};
+
+const levelNums = {
+    FATAL: 1,
+    ERROR: 2,
+    WARN: 3,
+    INFO: 4,
+    DEBUG: 5,
+    TRACE: 6
+};
