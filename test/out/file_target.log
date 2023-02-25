@@ -1,0 +1,5 @@
+{"timestamp":1677355019425,"level":"DEBUG","source":"source1","msg":["Debug",{"global":"[CIRCULAR #1]","performance":{"nodeTiming":{"name":"node","entryType":"node","startTime":0,"duration":73.71979999542236,"nodeStart":1.9083000421524048,"v8Start":4.164800047874451,"bootstrapComplete":25.074000000953674,"environment":14.257200002670288,"loopStart":32.3115000128746,"loopExit":-1,"idleTime":0.5253},"timeOrigin":1677355019352.81,"eventLoopUtilization":{"idle":0.5253,"active":40.8293000123024,"utilization":0.9872976645924822}}}]}
+{"timestamp":1677355019434,"level":"INFO","source":"source2","msg":["Info",{"bool":false}]}
+{"timestamp":1677355019437,"level":"WARN","source":"source3","msg":["Warn",["with","arrays"],42,{"a":[{"b":["[CIRCULAR #1]"]},[{"b":"[CIRCULAR #2]"}]]}]}
+{"timestamp":1677355019438,"level":"ERROR","source":"source4looong","msg":["Error",{}]}
+{"timestamp":1677355019440,"level":"FATAL","source":"source4looong","msg":["Fatal",1,null]}

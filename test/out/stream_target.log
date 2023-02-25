@@ -1,0 +1,10 @@
+[2023-02-25T19:56:59.437Z] [WARN] [source3] Warn [ 'with', 'arrays' ] 42 {
+[2023-02-25T19:56:59.437Z] [WARN] [source3]   a: [
+[2023-02-25T19:56:59.437Z] [WARN] [source3]     <ref *1> { b: [ [Circular *1] ] },
+[2023-02-25T19:56:59.437Z] [WARN] [source3]     <ref *2> [ <ref *1> { b: [Circular *2] } ]
+[2023-02-25T19:56:59.437Z] [WARN] [source3]   ]
+[2023-02-25T19:56:59.437Z] [WARN] [source3] }
+[2023-02-25T19:56:59.438Z] [ERROR] [source4looong] Error Error
+[2023-02-25T19:56:59.438Z] [ERROR] [source4looong]     at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:110:38
+[2023-02-25T19:56:59.438Z] [ERROR] [source4looong]     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2023-02-25T19:56:59.440Z] [FATAL] [source4looong] Fatal 1 null

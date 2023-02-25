@@ -1,0 +1,23 @@
+{
+  "name": "easy-node-logging",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Easily write styled logs to consoles, files, HTTP log aggregation, and more",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "node test/test"
+  },
+  "keywords": [
+    "logging",
+    "logs",
+    "node",
+    "simple",
+    "debugging"
+  ],
+  "author": "mahakadema",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "simple-safe-stringify": "^1.0.0"
+  }
+}
