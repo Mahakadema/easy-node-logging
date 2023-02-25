@@ -32,10 +32,11 @@ const server = createServer({}, (req, res) => {
     let body = "";
     req.on("data", chunk => body += chunk);
     req.on("end", () => {
-        if (postSuccessfullyReceived === null)
+        if (postSuccessfullyReceived === null && /^{"timestamp":\d+,"level":"FATAL","source":"source4looong","msg":\["Fatal",1,null\]}$/.test(body))
             postSuccessfullyReceived = true;
         console.log("REQUEST END", body);
     });
+    req.on("error", e => console.log("Server request error:", e));
     res.writeHead(201);
     res.end();
 });
@@ -114,6 +115,8 @@ promises.push(logger4.fatal("Fatal", 1, null));
 
 await Promise.all(promises);
 
+loggerFactory.destroy();
+
 await test("Invalid loggers fail", () => {
     assert.throws(() => loggerFactory.createLogger("source1", "#FFFF0"));
     assert.throws(() => loggerFactory.createLogger("source1", 0x1000000));
@@ -140,6 +143,4 @@ await test("Text logs are as expected", () => {
 await test("HTTP requests sent", () => {
     server.close();
     assert(postSuccessfullyReceived);
-})
-
-// loggerFactory.destroy();
+});

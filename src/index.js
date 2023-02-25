@@ -251,13 +251,10 @@ function postRequest(https, url, content, options) {
                 resolve(result);
             });
 
-            res.on("error", e => { // should only be triggered during a timeout during response transmission
+            res.on("error", e => {
                 reject(e);
             });
         });
-
-        req.write(content);
-        req.end();
 
         req.on("error", e => {
             req.destroy();
@@ -267,6 +264,9 @@ function postRequest(https, url, content, options) {
             req.destroy();
             reject(new Error("No response received"));
         });
+
+        req.write(content);
+        req.end();
     });
 }
 
