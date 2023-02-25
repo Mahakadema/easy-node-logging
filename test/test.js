@@ -110,7 +110,7 @@ promises.push(logger1.trace("Trace", "stuff"));
 promises.push(logger1.debug("Debug", global));
 promises.push(logger2.info("Info", { bool: false }));
 promises.push(logger3.warn("Warn", ["with", "arrays"], 42, circularObject));
-promises.push(logger4.error("Error", new Error()));
+promises.push(logger4.error("Error", new SyntaxError("Something failed")));
 promises.push(logger4.fatal("Fatal", 1, null));
 
 await Promise.all(promises);

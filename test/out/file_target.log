@@ -1,5 +1,6 @@
-{"timestamp":1677355019425,"level":"DEBUG","source":"source1","msg":["Debug",{"global":"[CIRCULAR #1]","performance":{"nodeTiming":{"name":"node","entryType":"node","startTime":0,"duration":73.71979999542236,"nodeStart":1.9083000421524048,"v8Start":4.164800047874451,"bootstrapComplete":25.074000000953674,"environment":14.257200002670288,"loopStart":32.3115000128746,"loopExit":-1,"idleTime":0.5253},"timeOrigin":1677355019352.81,"eventLoopUtilization":{"idle":0.5253,"active":40.8293000123024,"utilization":0.9872976645924822}}}]}
-{"timestamp":1677355019434,"level":"INFO","source":"source2","msg":["Info",{"bool":false}]}
-{"timestamp":1677355019437,"level":"WARN","source":"source3","msg":["Warn",["with","arrays"],42,{"a":[{"b":["[CIRCULAR #1]"]},[{"b":"[CIRCULAR #2]"}]]}]}
-{"timestamp":1677355019438,"level":"ERROR","source":"source4looong","msg":["Error",{}]}
-{"timestamp":1677355019440,"level":"FATAL","source":"source4looong","msg":["Fatal",1,null]}
+{"timestamp":1677360935327,"level":"TRACE","source":"source1","msg":["Trace","stuff"]}
+{"timestamp":1677360935329,"level":"DEBUG","source":"source1","msg":["Debug",{"global":"[CIRCULAR #1]","performance":{"nodeTiming":{"name":"node","entryType":"node","startTime":0,"duration":72.30889999866486,"nodeStart":2.0056999921798706,"v8Start":4.165300011634827,"bootstrapComplete":25.09340000152588,"environment":14.54229998588562,"loopStart":32.03540003299713,"loopExit":-1,"idleTime":0.3925},"timeOrigin":1677360935258.093,"eventLoopUtilization":{"idle":0.3925,"active":39.828099949359896,"utilization":0.9902413191127388}}}]}
+{"timestamp":1677360935334,"level":"INFO","source":"source2","msg":["Info",{"bool":false}]}
+{"timestamp":1677360935334,"level":"WARN","source":"source3","msg":["Warn",["with","arrays"],42,{"a":[{"b":["[CIRCULAR #1]"]},[{"b":"[CIRCULAR #2]"}]]}]}
+{"timestamp":1677360935335,"level":"ERROR","source":"source4looong","msg":["Error",{"stack":"SyntaxError: Something failed\n    at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:113:38\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","message":"Something failed"}]}
+{"timestamp":1677360935337,"level":"FATAL","source":"source4looong","msg":["Fatal",1,null]}
