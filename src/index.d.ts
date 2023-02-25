@@ -20,6 +20,11 @@ export class Logger {
     private manager: LoggerFactory;
 
     /**
+     * Logs a TRACE level message
+     * @param messages The objects to log
+     */
+    public trace(...messages: any[]): Promise<any>;
+    /**
      * Logs a DEBUG level message
      * @param messages The objects to log
      */
@@ -95,7 +100,7 @@ interface BaseTarget {
     /**
      * The minimum log level required to write to this target
      */
-    logLevel?: "FATAL" | "ERROR" | "WARN" | "INFO" | "DEBUG",
+    logLevel?: LogLevel,
     /**
      * Whether to output logs in raw text, colored text, or in json
      * @default "TEXT"
@@ -174,7 +179,7 @@ interface FileTarget extends BaseTarget {
      */
     type: "FILE",
     /**
-     * The path of the file to write to. Throws if the path already exists.
+     * The path of the file to write to. Appends to the file if it already exists.
      * If path is a string, ~/ will reference the user home directory
      */
     path: import("fs").PathLike,
@@ -203,4 +208,6 @@ interface PostTarget extends BaseTarget {
     options?: any,
 }
 
-type Target = StreamTarget | FileTarget | PostTarget | StdOutTarget | FunctionTarget
+type Target = StreamTarget | FileTarget | PostTarget | StdOutTarget | FunctionTarget;
+
+type LogLevel = "FATAL" | "ERROR" | "WARN" | "INFO" | "DEBUG" | "TRACE";

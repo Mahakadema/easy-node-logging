@@ -64,24 +64,28 @@ export class Logger {
         return this.manager.destroyed;
     }
 
+    trace(...messages) {
+        return _log(this.manager.targets, messages, 6, this, this.manager.maxSourceLength)
+    }
+
     debug(...messages) {
-        return _log(this.manager.targets, messages, 0, this, this.manager.maxSourceLength);
+        return _log(this.manager.targets, messages, 5, this, this.manager.maxSourceLength);
     }
 
     info(...messages) {
-        return _log(this.manager.targets, messages, 1, this, this.manager.maxSourceLength);
+        return _log(this.manager.targets, messages, 4, this, this.manager.maxSourceLength);
     }
 
     warn(...messages) {
-        return _log(this.manager.targets, messages, 2, this, this.manager.maxSourceLength);
-    }
-
-    error(...messages) {
         return _log(this.manager.targets, messages, 3, this, this.manager.maxSourceLength);
     }
 
+    error(...messages) {
+        return _log(this.manager.targets, messages, 2, this, this.manager.maxSourceLength);
+    }
+
     fatal(...messages) {
-        return _log(this.manager.targets, messages, 4, this, this.manager.maxSourceLength);
+        return _log(this.manager.targets, messages, 1, this, this.manager.maxSourceLength);
     }
 }
 
@@ -97,7 +101,7 @@ function _log(targets, messages, level, logger, maxSourceLength) {
         throw new Error("Logger has been destroyed");
     const timestamp = Date.now();
     return Promise.all(targets.map((v, i) => {
-        if (v.level > level)
+        if (v.level < level)
             return;
         return (async () => {
             const content = format(messages, level, logger.source, logger.color, v.uniform, maxSourceLength, v.format, v.color, timestamp, v.fullTimestamps);
@@ -140,12 +144,14 @@ function _log(targets, messages, level, logger, maxSourceLength) {
  */
 function format(messages, level, source, sourceColor, uniform, maxSourceLength, format, color, timestamp, fullTimestamps) {
     const levels = {
-        0: "DEBUG",
-        1: "INFO",
-        2: "WARN",
-        3: "ERROR",
-        4: "FATAL"
+        1: "FATAL",
+        2: "ERROR",
+        3: "WARN",
+        4: "INFO",
+        5: "DEBUG",
+        6: "TRACE"
     };
+    const maxCategoryLength = 5;
     if (format === "JSON") {
         return stringifySafe({
             timestamp: timestamp,
@@ -158,28 +164,33 @@ function format(messages, level, source, sourceColor, uniform, maxSourceLength, 
         let msg = null;
         const styledSource = (color ? sourceColor : noColor)(source.padEnd(uniform * maxSourceLength));
         switch (level) {
-            case 0:
-                const debugPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.blackBright("[") + chalk.gray(levels[level]) + chalk.blackBright("]") : "[" + levels[level] + "]"} ${color ? chalk.blackBright("[") + chalk.gray(styledSource) + chalk.blackBright("]") : "[" + styledSource + "]"} `;
+            case 6:
+                const tracePrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.blackBright("[") + chalk.gray(levels[level]) + chalk.blackBright("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.blackBright("[") + chalk.gray(styledSource) + chalk.blackBright("]") : "[" + styledSource + "]"} `;
+                const traceContent = (color ? chalk.gray : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
+                msg = tracePrefix + traceContent.split("\n").join("\n" + tracePrefix);
+                break;
+            case 5:
+                const debugPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.white("[") + chalk.whiteBright(levels[level]) + chalk.white("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}[${styledSource}] `;
                 const debugContent = (color ? chalk.gray : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = debugPrefix + debugContent.split("\n").join("\n" + debugPrefix);
                 break;
-            case 1:
-                const infoPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.white("[") + chalk.whiteBright(levels[level]) + chalk.white("]") : "[" + levels[level] + "]"} [${styledSource}] `;
+            case 4:
+                const infoPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.hex("#0B8E82")("[") + chalk.hex("#26E2D0")(levels[level]) + chalk.hex("#0B8E82")("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}[${styledSource}] `;
                 const infoContent = messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" ");
                 msg = infoPrefix + infoContent.split("\n").join("\n" + infoPrefix);
                 break;
-            case 2:
-                const warnPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.yellow("[") + chalk.yellowBright(levels[level]) + chalk.yellow("]") : "[" + levels[level] + "]"} ${color ? chalk.yellow("[") + chalk.yellowBright(styledSource) + chalk.yellow("]") : "[" + styledSource + "]"} `;
+            case 3:
+                const warnPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.yellow("[") + chalk.yellowBright(levels[level]) + chalk.yellow("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.yellow("[") + chalk.yellowBright(styledSource) + chalk.yellow("]") : "[" + styledSource + "]"} `;
                 const warnContent = (color ? chalk.yellowBright : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = warnPrefix + warnContent.split("\n").join("\n" + warnPrefix);
                 break;
-            case 3:
-                const errorPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.hex("#9F0000")("[") + chalk.hex("#FF0000")(levels[level]) + chalk.hex("#9F0000")("]") : "[" + levels[level] + "]"} ${color ? chalk.hex("#9F0000")("[") + chalk.hex("#FF0000")(styledSource) + chalk.hex("#9F0000")("]") : "[" + styledSource + "]"} `;
+            case 2:
+                const errorPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.hex("#9F0000")("[") + chalk.hex("#FF0000")(levels[level]) + chalk.hex("#9F0000")("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.hex("#9F0000")("[") + chalk.hex("#FF0000")(styledSource) + chalk.hex("#9F0000")("]") : "[" + styledSource + "]"} `;
                 const errorContent = (color ? chalk.hex("#FF0000") : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = errorPrefix + errorContent.split("\n").join("\n" + errorPrefix);
                 break;
-            case 4:
-                const fatalPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${(color ? chalk.bgRedBright : noColor)(`${color ? chalk.black("[") + chalk.hex("#0F0F0F")(levels[level]) + chalk.black("]") : "[" + levels[level] + "]"} ${color ? chalk.black("[") + chalk.hex("#0F0F0F")(styledSource) + chalk.black("]") : "[" + styledSource + "]"} `)}`;
+            case 1:
+                const fatalPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${(color ? chalk.bgRedBright : noColor)(`${color ? chalk.black("[") + chalk.hex("#0F0F0F")(levels[level]) + chalk.black("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.black("[") + chalk.hex("#0F0F0F")(styledSource) + chalk.black("]") : "[" + styledSource + "]"} `)}`;
                 const fatalContent = (color ? chalk.hex("#0F0F0F").bgRedBright : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = fatalPrefix + fatalContent.split("\n").join("\n" + fatalPrefix);
                 break;
@@ -323,7 +334,7 @@ async function createStream(path) {
 
     const stream = await new Promise((resolve, reject) => {
         try {
-            const ws = createWriteStream(path, { flags: "ax" });
+            const ws = createWriteStream(path, { flags: "a" });
             ws.on("ready", () => resolve(ws));
         } catch (e) {
             reject(e);
@@ -346,15 +357,16 @@ function baseTargetOptions(target) {
 
 function logLevelNum(level) {
     const levels = {
-        DEBUG: 0,
-        INFO: 1,
-        WARN: 2,
-        ERROR: 3,
-        FATAL: 4
+        FATAL: 1,
+        ERROR: 2,
+        WARN: 3,
+        INFO: 4,
+        DEBUG: 5,
+        TRACE: 6
     };
     if (level && levels[level] === undefined)
         throw new TypeError(`log level must be one of 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'. Received ${level} instead`);
-    return levels[level] || 0
+    return levels[level] || levels.TRACE;
 }
 
 function logStyle(style) {

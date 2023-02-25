@@ -24,7 +24,7 @@ async function test(name, fn) {
 }
 
 // server for http requests
-let postSuccessfullyReceived = false;
+let postSuccessfullyReceived = null;
 const server = createServer({}, (req, res) => {
     console.log(req.method, req.headers);
     if (postSuccessfullyReceived)
@@ -32,7 +32,8 @@ const server = createServer({}, (req, res) => {
     let body = "";
     req.on("data", chunk => body += chunk);
     req.on("end", () => {
-        postSuccessfullyReceived = true;
+        if (postSuccessfullyReceived === null)
+            postSuccessfullyReceived = true;
         console.log("REQUEST END", body);
     });
     res.writeHead(201);
@@ -56,7 +57,7 @@ const loggerFactory = await createLoggerFactory([
         color: false,
         errorPolicy: "LOG",
         fullTimestamps: true,
-        logLevel: "DEBUG",
+        logLevel: "TRACE",
         style: "JSON",
         uniformLength: false
     },
@@ -104,6 +105,7 @@ const logger2 = loggerFactory.createLogger("source2", 0x00ffff);
 const logger3 = loggerFactory.createLogger("source3", [255, 0, 206]);
 const logger4 = loggerFactory.createLogger("source4looong");
 
+promises.push(logger1.trace("Trace", "stuff"));
 promises.push(logger1.debug("Debug", global));
 promises.push(logger2.info("Info", { bool: false }));
 promises.push(logger3.warn("Warn", ["with", "arrays"], 42, circularObject));
@@ -123,16 +125,16 @@ await test("JSON logs are as expected", () => {
     const lines = readFileSync("./test/out/file_target.log", "utf-8").split("\n").slice(0, -1);
     // console.log(fileContent);
     assert.doesNotThrow(() => lines.map(v => JSON.parse(v)));
-    assert(lines.length === 5, `${lines.length} lines in log`);
+    assert(lines.length === 6, `${lines.length} lines in log`);
 });
 
 await test("Text logs are as expected", () => {
     const lines = readFileSync("./test/out/stream_target.log", "utf-8").split("\n").slice(0, -1);
     // console.log(fileContent);
     lines.forEach((v, i) => {
-        assert.match(v, /^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z\] \[(WARN|ERROR|FATAL)\] \[source.*\] .*$/, `Line ${i} did not pass`);
+        assert.match(v, /^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z\] \[(WARN|ERROR|FATAL)\]  ?\[source.*\] .*$/, `Line ${i} did not pass`);
     });
-    assert(lines.length >= 5, `Only ${lines.length} lines in log`);
+    assert(lines.length === 10, `${lines.length} lines in log`);
 });
 
 await test("HTTP requests sent", () => {
