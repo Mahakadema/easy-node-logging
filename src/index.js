@@ -122,7 +122,7 @@ function _log(targets, messages, level, logger, maxSourceLength) {
                         throw e;
                     case "LOG":
                         if (!logger.destroyed) {
-                            return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { error: e, messages }], 4, logger, maxSourceLength);
+                            return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { error: e, messages }], 2, logger, maxSourceLength);
                         }
                 }
             };
