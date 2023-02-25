@@ -158,6 +158,13 @@ function format(messages, level, source, sourceColor, uniform, maxSourceLength, 
             level: levels[level],
             source: source,
             msg: messages
+        }, (k, v) => {
+            if (v instanceof Error) {
+                const error = {};
+                Object.getOwnPropertyNames(v).forEach(name => error[name] = v[name]);
+                return error;
+            }
+            return v;
         });
     } else {
         // console.log(messages, level, source, sourceColor, uniform, maxSourceLength, format, color, timestamp, fullTimestamps);
