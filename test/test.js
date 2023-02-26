@@ -141,10 +141,11 @@ await test("Text logs are as expected", () => {
     lines.forEach((v, i) => {
         assert.match(v, /^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z\] \[(WARN|ERROR|FATAL)\]  ?\[source.*\] .*$/, `Line ${i} did not pass`);
     });
-    assert(lines.length === 115, `${lines.length} lines in log`);
+    assert(lines.length === 121, `${lines.length} lines in log`);
 });
 
 await test("HTTP requests sent", () => {
     server.close();
-    assert.match(httpReceivedData, /^{"timestamp":\d+,"level":"FATAL","source":"source4looong","msg":\["Fatal",1,null\]}\n$/);
+    const validHttpDataRegex = /^{"timestamp":\d+,"level":"FATAL","source":"source4looong","msg":\["Fatal",1,null\]}\n{"timestamp":\d+,"level":"FATAL","source":"source4looong","msg":\["Failed to log to target 5:",{"level":"FATAL","messages":\["Fatal",1,null\],"error":{.*}}\]}\n$/;
+    assert.match(httpReceivedData, validHttpDataRegex);
 });

@@ -1,10 +1,121 @@
-[2023-02-25T21:35:35.334Z] [WARN] [source3] Warn [ 'with', 'arrays' ] 42 {
-[2023-02-25T21:35:35.334Z] [WARN] [source3]   a: [
-[2023-02-25T21:35:35.334Z] [WARN] [source3]     <ref *1> { b: [ [Circular *1] ] },
-[2023-02-25T21:35:35.334Z] [WARN] [source3]     <ref *2> [ <ref *1> { b: [Circular *2] } ]
-[2023-02-25T21:35:35.334Z] [WARN] [source3]   ]
-[2023-02-25T21:35:35.334Z] [WARN] [source3] }
-[2023-02-25T21:35:35.335Z] [ERROR] [source4looong] Error SyntaxError: Something failed
-[2023-02-25T21:35:35.335Z] [ERROR] [source4looong]     at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:113:38
-[2023-02-25T21:35:35.335Z] [ERROR] [source4looong]     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-[2023-02-25T21:35:35.337Z] [FATAL] [source4looong] Fatal 1 null
+[2023-02-26T16:55:12.826Z] [WARN] [source3] Warn [ 'with', 'arrays' ] 42 {
+[2023-02-26T16:55:12.826Z] [WARN] [source3]   a: [
+[2023-02-26T16:55:12.826Z] [WARN] [source3]     <ref *1> { b: [ [Circular *1] ] },
+[2023-02-26T16:55:12.826Z] [WARN] [source3]     <ref *2> [ <ref *1> { b: [Circular *2] } ]
+[2023-02-26T16:55:12.826Z] [WARN] [source3]   ]
+[2023-02-26T16:55:12.826Z] [WARN] [source3] }
+[2023-02-26T16:55:12.827Z] [ERROR] [source4looong] Error SyntaxError: Something failed
+[2023-02-26T16:55:12.827Z] [ERROR] [source4looong]     at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:117:38
+[2023-02-26T16:55:12.827Z] [ERROR] [source4looong]     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2023-02-26T16:55:12.829Z] [FATAL] [source4looong] Fatal 1 null
+[2023-02-26T16:55:12.838Z] [ERROR] [source1] Failed to log to target 5: {
+[2023-02-26T16:55:12.838Z] [ERROR] [source1]   level: 'TRACE',
+[2023-02-26T16:55:12.838Z] [ERROR] [source1]   messages: [ 'Trace', 'stuff' ],
+[2023-02-26T16:55:12.838Z] [ERROR] [source1]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-02-26T16:55:12.838Z] [ERROR] [source1]     errno: -4058,
+[2023-02-26T16:55:12.838Z] [ERROR] [source1]     code: 'ENOENT',
+[2023-02-26T16:55:12.838Z] [ERROR] [source1]     syscall: 'open',
+[2023-02-26T16:55:12.838Z] [ERROR] [source1]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-02-26T16:55:12.838Z] [ERROR] [source1]   }
+[2023-02-26T16:55:12.838Z] [ERROR] [source1] }
+[2023-02-26T16:55:12.842Z] [ERROR] [source1] Failed to log to target 5: {
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]   level: 'DEBUG',
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]   messages: [
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]     'Debug',
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]     <ref *1> Object [global] {
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       global: [Circular *1],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       queueMicrotask: [Function: queueMicrotask],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       clearImmediate: [Function: clearImmediate],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       setImmediate: [Function: setImmediate] {
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]         [Symbol(nodejs.util.promisify.custom)]: [Getter]
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       },
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       structuredClone: [Function: structuredClone],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       clearInterval: [Function: clearInterval],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       clearTimeout: [Function: clearTimeout],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       setInterval: [Function: setInterval],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       setTimeout: [Function: setTimeout] {
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]         [Symbol(nodejs.util.promisify.custom)]: [Getter]
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       },
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       atob: [Function: atob],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       btoa: [Function: btoa],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       performance: Performance {
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]         nodeTiming: PerformanceNodeTiming {
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           name: 'node',
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           entryType: 'node',
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           startTime: 0,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           duration: 96.58490002155304,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           nodeStart: 1.8944000005722046,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           v8Start: 3.970099985599518,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           bootstrapComplete: 24.763000011444092,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           environment: 13.903500020503998,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           loopStart: 31.608300030231476,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           loopExit: -1,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]           idleTime: 0.3276
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]         },
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]         timeOrigin: 1677430512750.385
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       },
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]       fetch: [AsyncFunction: fetch]
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]     }
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]   ],
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]     errno: -4058,
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]     code: 'ENOENT',
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]     syscall: 'open',
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-02-26T16:55:12.842Z] [ERROR] [source1]   }
+[2023-02-26T16:55:12.842Z] [ERROR] [source1] }
+[2023-02-26T16:55:12.847Z] [ERROR] [source2] Failed to log to target 5: {
+[2023-02-26T16:55:12.847Z] [ERROR] [source2]   level: 'INFO',
+[2023-02-26T16:55:12.847Z] [ERROR] [source2]   messages: [ 'Info', { bool: false } ],
+[2023-02-26T16:55:12.847Z] [ERROR] [source2]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-02-26T16:55:12.847Z] [ERROR] [source2]     errno: -4058,
+[2023-02-26T16:55:12.847Z] [ERROR] [source2]     code: 'ENOENT',
+[2023-02-26T16:55:12.847Z] [ERROR] [source2]     syscall: 'open',
+[2023-02-26T16:55:12.847Z] [ERROR] [source2]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-02-26T16:55:12.847Z] [ERROR] [source2]   }
+[2023-02-26T16:55:12.847Z] [ERROR] [source2] }
+[2023-02-26T16:55:12.848Z] [ERROR] [source3] Failed to log to target 5: {
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]   level: 'WARN',
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]   messages: [
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     'Warn',
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     [ 'with', 'arrays' ],
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     42,
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     {
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]       a: [
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]         <ref *1> { b: [ [Circular *1] ] },
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]         <ref *2> [ <ref *1> { b: [Circular *2] } ]
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]       ]
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     }
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]   ],
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     errno: -4058,
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     code: 'ENOENT',
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     syscall: 'open',
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-02-26T16:55:12.848Z] [ERROR] [source3]   }
+[2023-02-26T16:55:12.848Z] [ERROR] [source3] }
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong] Failed to log to target 5: {
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]   level: 'ERROR',
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]   messages: [
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]     'Error',
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]     SyntaxError: Something failed
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]         at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:117:38
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]         at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]   ],
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]     errno: -4058,
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]     code: 'ENOENT',
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]     syscall: 'open',
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong]   }
+[2023-02-26T16:55:12.850Z] [ERROR] [source4looong] }
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong] Failed to log to target 5: {
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong]   level: 'FATAL',
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong]   messages: [ 'Fatal', 1, null ],
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong]     errno: -4058,
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong]     code: 'ENOENT',
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong]     syscall: 'open',
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong]   }
+[2023-02-26T16:55:12.852Z] [FATAL] [source4looong] }
