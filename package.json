@@ -19,5 +19,13 @@
   "dependencies": {
     "chalk": "^5.2.0",
     "simple-safe-stringify": "^1.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mahakadema/easy-node-logging.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mahakadema/easy-node-logging/issues"
+  },
+  "homepage": "https://github.com/Mahakadema/easy-node-logging"
 }
