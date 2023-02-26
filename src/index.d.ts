@@ -89,9 +89,9 @@ export class LoggerFactory {
  * Creates a new instance of LoggerFactory
  * @param targets The targets of the LoggerFactory
  */
-export async function createLoggerFactory(targets: Target[] | Target): Promise<LoggerFactory>
+export function createLoggerFactory(targets: Target[] | Target): Promise<LoggerFactory>
 
-type ParsedTarget = ({ type: "STREAM", stream: import("fs").WriteStream } | { type: "FUNCTION", func: Function } | { type: "HTTP" | "HTTPS", url: string | URL, options: any }) & { level: number, uniform: boolean, format: "JSON" | "TEXT", color: boolean, fullTimestamps: boolean, errorPolicy: "THROW" | "LOG" | "IGNORE" };
+type ParsedTarget = ({ type: "STREAM", stream: import("fs").WriteStream, private: boolean } | { type: "FUNCTION", func: Function } | { type: "HTTP" | "HTTPS", url: string | URL, options: any }) & { level: number, uniform: boolean, format: "JSON" | "TEXT", color: boolean, fullTimestamps: boolean, errorPolicy: "THROW" | "LOG" | "IGNORE" };
 
 /**
  * A typeless target
@@ -133,7 +133,7 @@ interface BaseTarget {
 }
 
 /**
- * Writes logs to the provided stream
+ * Writes logs to the provided stream. The user is responsible for handling errors and closing the stream once it is no longer in use
  */
 interface StreamTarget extends BaseTarget {
     /**
@@ -183,6 +183,16 @@ interface FileTarget extends BaseTarget {
      * If path is a string, ~/ will reference the user home directory
      */
     path: import("fs").PathLike,
+    /**
+     * Whether an {@link FileTarget.errorListener | error event} should be emitted in case the file at the supplied path already exists.
+     * If false and a file exists, it will be appended. Otherwise it will be created.
+     * @default false
+     */
+    failIfExists?: boolean,
+    /**
+     * The error listener to attach to the file stream. If this option is not supplied an an error is emited, the process exits.
+     */
+    errorListener?: Function
 }
 
 /**

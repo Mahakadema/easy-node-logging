@@ -24,16 +24,13 @@ async function test(name, fn) {
 }
 
 // server for http requests
-let postSuccessfullyReceived = null;
+let httpReceivedData = "";
 const server = createServer({}, (req, res) => {
     console.log(req.method, req.headers);
-    if (postSuccessfullyReceived)
-        postSuccessfullyReceived = false;
     let body = "";
     req.on("data", chunk => body += chunk);
     req.on("end", () => {
-        if (postSuccessfullyReceived === null && /^{"timestamp":\d+,"level":"FATAL","source":"source4looong","msg":\["Fatal",1,null\]}$/.test(body))
-            postSuccessfullyReceived = true;
+        httpReceivedData += body + "\n";
         console.log("REQUEST END", body);
     });
     req.on("error", e => console.log("Server request error:", e));
@@ -55,6 +52,8 @@ const loggerFactory = await createLoggerFactory([
     {
         type: "FILE",
         path: `./test/out/file_target.log`,
+        errorListener: console.error,
+        failIfExists: true,
         color: false,
         errorPolicy: "LOG",
         fullTimestamps: true,
@@ -87,7 +86,12 @@ const loggerFactory = await createLoggerFactory([
         https: false,
         style: "JSON",
         logLevel: "FATAL"
-    }
+    },
+    {
+        type: "FILE",
+        path: `./test/out/invalid/file_target.log`,
+        errorListener: () => null,
+    },
 ]);
 
 const circularObject = {
@@ -128,7 +132,7 @@ await test("JSON logs are as expected", () => {
     const lines = readFileSync("./test/out/file_target.log", "utf-8").split("\n").slice(0, -1);
     // console.log(fileContent);
     assert.doesNotThrow(() => lines.map(v => JSON.parse(v)));
-    assert(lines.length === 6, `${lines.length} lines in log`);
+    assert(lines.length === 12, `${lines.length} lines in log`);
 });
 
 await test("Text logs are as expected", () => {
@@ -137,10 +141,10 @@ await test("Text logs are as expected", () => {
     lines.forEach((v, i) => {
         assert.match(v, /^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z\] \[(WARN|ERROR|FATAL)\]  ?\[source.*\] .*$/, `Line ${i} did not pass`);
     });
-    assert(lines.length === 10, `${lines.length} lines in log`);
+    assert(lines.length === 115, `${lines.length} lines in log`);
 });
 
 await test("HTTP requests sent", () => {
     server.close();
-    assert(postSuccessfullyReceived);
+    assert.match(httpReceivedData, /^{"timestamp":\d+,"level":"FATAL","source":"source4looong","msg":\["Fatal",1,null\]}\n$/);
 });

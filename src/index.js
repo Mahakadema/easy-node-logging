@@ -48,7 +48,7 @@ export class LoggerFactory {
 
     destroy() {
         this.destroyed = true;
-        this.targets.filter(v => v.type === "STREAM").forEach(v => v.stream.destroy());
+        this.targets.filter(v => v.type === "STREAM" && v.private === true).forEach(v => v.stream.destroy());
         this.targets = null;
     }
 }
@@ -209,7 +209,7 @@ function formatTime(ms, full) {
 
 function writeToStream(stream, content) {
     return new Promise((res, rej) => {
-        stream.write(content + "\n", (err) => err ? rej(err) : res(null))
+        stream.write(content + "\n", (err) => err ? rej(err) : res(null));
     });
 }
 
@@ -262,7 +262,7 @@ function postRequest(https, url, content, options) {
     });
 }
 
-export async function createLoggerFactory(targets) {
+export function createLoggerFactory(targets) {
     if (!Array.isArray(targets)) {
         targets = [targets];
     }
@@ -272,10 +272,13 @@ export async function createLoggerFactory(targets) {
     for (const target of targets) {
         switch (target.type) {
             case "FILE":
-                const stream = await createStream(target.path);
+                const stream = createStream(target.path, target.failIfExists);
+                if (target.errorListener)
+                    stream.on("error", target.errorListener);
                 parsedTargets.push({
                     type: "STREAM",
                     stream: stream,
+                    private: true,
                     ...baseTargetOptions(target)
                 })
                 break;
@@ -285,6 +288,7 @@ export async function createLoggerFactory(targets) {
                 parsedTargets.push({
                     type: "STREAM",
                     stream: target.stream,
+                    private: false,
                     ...baseTargetOptions(target)
                 });
                 break;
@@ -322,7 +326,7 @@ export async function createLoggerFactory(targets) {
     return factory;
 }
 
-async function createStream(path) {
+function createStream(path, failIfExists) {
     if (typeof path === "string") {
         path = path.split("\\").join("/");
         if (path.startsWith("~/"))
@@ -331,15 +335,7 @@ async function createStream(path) {
         throw new Error("path must be a string");
     }
 
-    const stream = await new Promise((resolve, reject) => {
-        try {
-            const ws = createWriteStream(path, { flags: "a" });
-            ws.on("ready", () => resolve(ws));
-        } catch (e) {
-            reject(e);
-        }
-    });
-
+    const stream = createWriteStream(path, { flags: failIfExists ? "ax" : "a" });
     return stream;
 }
 
