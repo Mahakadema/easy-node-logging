@@ -121,9 +121,8 @@ function _log(targets, messages, level, logger, maxSourceLength) {
                     case "THROW":
                         throw e;
                     case "LOG":
-                        if (!logger.destroyed) {
+                        if (!logger.destroyed)
                             return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { level: levels[level], messages, error: e }], Math.min(level, levelNums.ERROR), logger, maxSourceLength);
-                        }
                 }
             };
         })();
@@ -164,13 +163,13 @@ function format(messages, level, source, sourceColor, uniform, maxSourceLength, 
         const styledSource = (color ? sourceColor : noColor)(source.padEnd(uniform * maxSourceLength));
         switch (level) {
             case levelNums.TRACE:
-                const tracePrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.blackBright("[") + chalk.gray(levels[level]) + chalk.blackBright("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.blackBright("[") + chalk.gray(styledSource) + chalk.blackBright("]") : "[" + styledSource + "]"} `;
-                const traceContent = (color ? chalk.gray : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
+                const tracePrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.hex("#5F5F5F")("[") + chalk.hex("#808080")(levels[level]) + chalk.hex("#5F5F5F")("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.hex("#5F5F5F")("[") + chalk.hex("#808080")(styledSource) + chalk.hex("#5F5F5F")("]") : "[" + styledSource + "]"} `;
+                const traceContent = (color ? chalk.hex("#808080") : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = tracePrefix + traceContent.split("\n").join("\n" + tracePrefix);
                 break;
             case levelNums.DEBUG:
-                const debugPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.white("[") + chalk.whiteBright(levels[level]) + chalk.white("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}[${styledSource}] `;
-                const debugContent = (color ? chalk.gray : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
+                const debugPrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.hex("#787878")("[") + chalk.hex("#9F9F9F")(levels[level]) + chalk.hex("#787878")("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.hex("#787878")("[") + chalk.hex("#9F9F9F")(styledSource) + chalk.hex("#787878")("]") : "[" + styledSource + "]"} `;
+                const debugContent = (color ? chalk.hex("#9F9F9F") : noColor)(messages.map(v => typeof v === "string" ? v : inspect(v, false, null, color)).join(" "));
                 msg = debugPrefix + debugContent.split("\n").join("\n" + debugPrefix);
                 break;
             case levelNums.INFO:
@@ -352,7 +351,7 @@ function baseTargetOptions(target) {
 
 function logLevelNum(level) {
     if (level && levelNums[level] === undefined)
-        throw new TypeError(`log level must be one of 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'. Received ${level} instead`);
+        throw new TypeError(`log level must be one of 'TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL'. Received ${level} instead`);
     return levelNums[level] || levelNums.TRACE;
 }
 

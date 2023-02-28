@@ -89,7 +89,7 @@ export class LoggerFactory {
  * Creates a new instance of LoggerFactory
  * @param targets The targets of the LoggerFactory
  */
-export function createLoggerFactory(targets: Target[] | Target): Promise<LoggerFactory>
+export function createLoggerFactory(targets: Target[] | Target): LoggerFactory
 
 type ParsedTarget = ({ type: "STREAM", stream: import("fs").WriteStream, private: boolean } | { type: "FUNCTION", func: Function } | { type: "HTTP" | "HTTPS", url: string | URL, options: any }) & { level: number, uniform: boolean, format: "JSON" | "TEXT", color: boolean, fullTimestamps: boolean, errorPolicy: "THROW" | "LOG" | "IGNORE" };
 
@@ -123,13 +123,13 @@ interface BaseTarget {
      * Only affects text style logs
      * @default false
      */
-    fullTimestamps: boolean,
+    fullTimestamps?: boolean,
     /**
      * What action should be taken when an error is raised while writing the log.
      * If "LOG" is selected, and loggin the error raises another error, the error is ignored instead
      * @default "LOG"
      */
-    errorPolicy: "THROW" | "LOG" | "IGNORE",
+    errorPolicy?: "THROW" | "LOG" | "IGNORE",
 }
 
 /**
