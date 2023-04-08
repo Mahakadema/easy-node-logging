@@ -1,6 +1,6 @@
 {
   "name": "easy-node-logging",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "type": "module",
   "description": "Easily write styled logs to consoles, files, HTTP log aggregation, and more",
   "main": "./src/index.js",
