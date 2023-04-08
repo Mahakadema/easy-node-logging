@@ -17,7 +17,7 @@ export class LoggerFactory {
         this.destroyed = false;
     }
 
-    createLogger(source, sourceColor = null) {
+    createLogger(component, source = null, sourceColor = null) {
         if (this.destroyed)
             throw new Error("LoggerFacotry has been destroyed");
 
@@ -39,14 +39,17 @@ export class LoggerFactory {
 
         color = color ? chalk.hex(color) : noColor;
 
-        if (source.length > this.maxSourceLength)
-            this.maxSourceLength = source.length;
+        const sourceLength = component.length + 1 + (source?.length ?? -1);
+        if (sourceLength > this.maxSourceLength)
+            this.maxSourceLength = sourceLength;
 
-        const logger = new Logger(source, color, this);
+        const logger = new Logger(component, source, color, this);
         return logger;
     }
 
     destroy() {
+        if (this.destroyed)
+            return;
         this.destroyed = true;
         this.targets.filter(v => v.type === "STREAM" && v.private === true).forEach(v => v.stream.destroy());
         this.targets = null;
@@ -54,7 +57,8 @@ export class LoggerFactory {
 }
 
 export class Logger {
-    constructor(source, color, manager) {
+    constructor(component, source, color, manager) {
+        this.component = component;
         this.source = source;
         this.color = color;
         this.manager = manager;
@@ -104,7 +108,7 @@ function _log(targets, messages, level, logger, maxSourceLength) {
         if (v.level < level)
             return;
         return (async () => {
-            const content = format(messages, level, logger.source, logger.color, v.uniform, maxSourceLength, v.format, v.color, timestamp, v.fullTimestamps);
+            const content = format(messages, level, logger.component, logger.source, logger.color, v.uniform, maxSourceLength, v.format, v.color, timestamp, v.fullTimestamps);
             try {
                 switch (v.type) {
                     case "STREAM":
@@ -122,7 +126,7 @@ function _log(targets, messages, level, logger, maxSourceLength) {
                         throw e;
                     case "LOG":
                         if (!logger.destroyed)
-                            return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { level: levels[level], messages, error: e }], Math.min(level, levelNums.ERROR), logger, maxSourceLength);
+                            return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { timestamp, level: levels[level], messages, error: e }], Math.min(level, levelNums.ERROR), logger, maxSourceLength);
                 }
             };
         })();
@@ -132,7 +136,8 @@ function _log(targets, messages, level, logger, maxSourceLength) {
 /**
  * @param {any[]} messages
  * @param {number} level
- * @param {string} source
+ * @param {string} component
+ * @param {string?} source
  * @param {Function} sourceColor
  * @param {boolean} uniform
  * @param {number} maxSourceLength
@@ -141,12 +146,13 @@ function _log(targets, messages, level, logger, maxSourceLength) {
  * @param {number} timestamp
  * @param {boolean} fullTimestamps
  */
-function format(messages, level, source, sourceColor, uniform, maxSourceLength, format, color, timestamp, fullTimestamps) {
+function format(messages, level, component, source, sourceColor, uniform, maxSourceLength, format, color, timestamp, fullTimestamps) {
     const maxCategoryLength = 5;
     if (format === "JSON") {
         return stringifySafe({
             timestamp: timestamp,
             level: levels[level],
+            component: component,
             source: source,
             msg: messages
         }, (k, v) => {
@@ -155,12 +161,13 @@ function format(messages, level, source, sourceColor, uniform, maxSourceLength, 
                 Object.getOwnPropertyNames(v).forEach(name => error[name] = v[name]);
                 return error;
             }
+            if (v === undefined)
+                return "undefined";
             return v;
         });
     } else {
-        // console.log(messages, level, source, sourceColor, uniform, maxSourceLength, format, color, timestamp, fullTimestamps);
         let msg = null;
-        const styledSource = (color ? sourceColor : noColor)(source.padEnd(uniform * maxSourceLength));
+        const styledSource = (color ? sourceColor : noColor)((component + (source ? "/" + source : "")).padEnd(uniform * maxSourceLength));
         switch (level) {
             case levelNums.TRACE:
                 const tracePrefix = `[${formatTime(timestamp, fullTimestamps)}] ${color ? chalk.hex("#5F5F5F")("[") + chalk.hex("#808080")(levels[level]) + chalk.hex("#5F5F5F")("]") : "[" + levels[level] + "]"} ${"".padEnd((maxCategoryLength - levels[level].length) * uniform)}${color ? chalk.hex("#5F5F5F")("[") + chalk.hex("#808080")(styledSource) + chalk.hex("#5F5F5F")("]") : "[" + styledSource + "]"} `;

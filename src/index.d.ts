@@ -1,6 +1,6 @@
 
 export class Logger {
-    constructor(source: string, color: Function, manager: LoggerFactory);
+    constructor(component: string, source: string?, color: Function, manager: LoggerFactory);
 
     /**
      * The specified source of the Logger
@@ -73,10 +73,11 @@ export class LoggerFactory {
 
     /**
      * Returns a new instance of Logger
-     * @param source The source to display next to all logs from this logger
+     * @param component The component this logger corresponds to
+     * @param source The source this logger corresponds to, specify `null` to omit
      * @param sourceColor The color used to color the source, if color is enabled
      */
-    public createLogger(source: string, sourceColor: string | number | number[]): Logger;
+    public createLogger(component: string, source?: string, sourceColor?: string | number | number[]): Logger;
     /**
      * Destroys the logger factory and all loggers created by it.
      * If any logger from this factory attempts to log after it has been destroyed, it will throw.

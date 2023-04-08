@@ -26,7 +26,7 @@ async function test(name, fn) {
 // server for http requests
 let httpReceivedData = "";
 const server = createServer({}, (req, res) => {
-    console.log(req.method, req.headers);
+    console.log(req.method, req.url, req.headers);
     let body = "";
     req.on("data", chunk => body += chunk);
     req.on("end", () => {
@@ -105,28 +105,30 @@ circularObject.a[1] = circularObject.a[0].b;
 
 const promises = [];
 
-const logger1 = loggerFactory.createLogger("source1", "#FFFF00");
-const logger2 = loggerFactory.createLogger("source2", 0x00ffff);
-const logger3 = loggerFactory.createLogger("source3", [255, 0, 206]);
-const logger4 = loggerFactory.createLogger("source4looong");
+const logger1 = loggerFactory.createLogger("component1", null, "#FFFF00");
+const logger2 = loggerFactory.createLogger("component2", null, 0x00ffff);
+const logger3 = loggerFactory.createLogger("component3", null, [255, 0, 206]);
+const logger4 = loggerFactory.createLogger("component4looong");
+const logger5 = loggerFactory.createLogger("components", "longgg", "888800");
 
 promises.push(logger1.trace("Trace", "stuff"));
 promises.push(logger1.debug("Debug", global));
-promises.push(logger2.info("Info", { bool: false }));
+promises.push(logger2.info("Info", { bool: false, undef: undefined }));
 promises.push(logger3.warn("Warn", ["with", "arrays"], 42, circularObject));
 promises.push(logger4.error("Error", new SyntaxError("Something failed")));
-promises.push(logger4.fatal("Fatal", 1, null));
+promises.push(logger5.fatal("Fatal", 1, undefined, null));
 
 await Promise.all(promises);
 
-loggerFactory.destroy();
-
 await test("Invalid loggers fail", () => {
-    assert.throws(() => loggerFactory.createLogger("source1", "#FFFF0"));
-    assert.throws(() => loggerFactory.createLogger("source1", 0x1000000));
-    assert.throws(() => loggerFactory.createLogger("source1", [256, 0, 206]));
-    assert.throws(() => loggerFactory.createLogger("source1", [255, 0]));
+    assert.throws(() => loggerFactory.createLogger("component1", null, "#FFFF0"));
+    assert.throws(() => loggerFactory.createLogger("component1", null, 0x1000000));
+    assert.throws(() => loggerFactory.createLogger("component1", null, [256, 0, 206]));
+    assert.throws(() => loggerFactory.createLogger("component1", "part1", [255, 0]));
+    loggerFactory.destroy();
 });
+
+loggerFactory.destroy();
 
 await test("JSON logs are as expected", () => {
     const lines = readFileSync("./test/out/file_target.log", "utf-8").split("\n").slice(0, -1);
@@ -139,13 +141,13 @@ await test("Text logs are as expected", () => {
     const lines = readFileSync("./test/out/stream_target.log", "utf-8").split("\n").slice(0, -1);
     // console.log(fileContent);
     lines.forEach((v, i) => {
-        assert.match(v, /^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z\] \[(WARN|ERROR|FATAL)\]  ?\[source.*\] .*$/, `Line ${i} did not pass`);
+        assert.match(v, /^\[\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z\] \[(WARN|ERROR|FATAL)\]  ?\[component.*\] .*$/, `Line ${i} did not pass`);
     });
-    assert(lines.length === 121, `${lines.length} lines in log`);
+    assert(lines.length === 127, `${lines.length} lines in log`);
 });
 
 await test("HTTP requests sent", () => {
     server.close();
-    const validHttpDataRegex = /^{"timestamp":\d+,"level":"FATAL","source":"source4looong","msg":\["Fatal",1,null\]}\n{"timestamp":\d+,"level":"FATAL","source":"source4looong","msg":\["Failed to log to target 5:",{"level":"FATAL","messages":\["Fatal",1,null\],"error":{.*}}\]}\n$/;
+    const validHttpDataRegex = /^{"timestamp":\d+,"level":"FATAL","component":"components","source":"longgg","msg":\["Fatal",1,"undefined",null\]}\n{"timestamp":\d+,"level":"FATAL","component":"components","source":"longgg","msg":\["Failed to log to target 5:",{"timestamp":\d+,"level":"FATAL","messages":\["Fatal",1,"undefined",null\],"error":{.*}}\]}\n$/;
     assert.match(httpReceivedData, validHttpDataRegex);
 });
