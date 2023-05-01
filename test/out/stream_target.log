@@ -1,127 +1,127 @@
-[2023-04-08T08:56:20.123Z] [WARN] [component3] Warn [ 'with', 'arrays' ] 42 {
-[2023-04-08T08:56:20.123Z] [WARN] [component3]   a: [
-[2023-04-08T08:56:20.123Z] [WARN] [component3]     <ref *1> { b: [ [Circular *1] ] },
-[2023-04-08T08:56:20.123Z] [WARN] [component3]     <ref *2> [ <ref *1> { b: [Circular *2] } ]
-[2023-04-08T08:56:20.123Z] [WARN] [component3]   ]
-[2023-04-08T08:56:20.123Z] [WARN] [component3] }
-[2023-04-08T08:56:20.125Z] [ERROR] [component4looong] Error SyntaxError: Something failed
-[2023-04-08T08:56:20.125Z] [ERROR] [component4looong]     at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:118:38
-[2023-04-08T08:56:20.125Z] [ERROR] [component4looong]     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-[2023-04-08T08:56:20.127Z] [FATAL] [components/longgg] Fatal 1 undefined null
-[2023-04-08T08:56:20.137Z] [ERROR] [component1] Failed to log to target 5: {
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]   timestamp: 1680944180108,
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]   level: 'TRACE',
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]   messages: [ 'Trace', 'stuff' ],
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]     errno: -4058,
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]     code: 'ENOENT',
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]     syscall: 'open',
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
-[2023-04-08T08:56:20.137Z] [ERROR] [component1]   }
-[2023-04-08T08:56:20.137Z] [ERROR] [component1] }
-[2023-04-08T08:56:20.145Z] [ERROR] [component1] Failed to log to target 5: {
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]   timestamp: 1680944180110,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]   level: 'DEBUG',
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]   messages: [
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]     'Debug',
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]     <ref *1> Object [global] {
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       global: [Circular *1],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       queueMicrotask: [Function: queueMicrotask],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       clearImmediate: [Function: clearImmediate],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       setImmediate: [Function: setImmediate] {
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]         [Symbol(nodejs.util.promisify.custom)]: [Getter]
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       },
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       structuredClone: [Function: structuredClone],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       clearInterval: [Function: clearInterval],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       clearTimeout: [Function: clearTimeout],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       setInterval: [Function: setInterval],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       setTimeout: [Function: setTimeout] {
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]         [Symbol(nodejs.util.promisify.custom)]: [Getter]
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       },
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       atob: [Function: atob],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       btoa: [Function: btoa],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       performance: Performance {
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]         nodeTiming: PerformanceNodeTiming {
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           name: 'node',
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           entryType: 'node',
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           startTime: 0,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           duration: 132.66919994354248,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           nodeStart: 2.139200210571289,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           v8Start: 4.23330020904541,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           bootstrapComplete: 27.79139995574951,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           environment: 16.328800201416016,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           loopStart: 34.98010015487671,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           loopExit: -1,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]           idleTime: 0.1737
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]         },
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]         timeOrigin: 1680944180028.313
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       },
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]       fetch: [AsyncFunction: fetch]
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]     }
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]   ],
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]     errno: -4058,
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]     code: 'ENOENT',
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]     syscall: 'open',
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
-[2023-04-08T08:56:20.145Z] [ERROR] [component1]   }
-[2023-04-08T08:56:20.145Z] [ERROR] [component1] }
-[2023-04-08T08:56:20.162Z] [ERROR] [component2] Failed to log to target 5: {
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]   timestamp: 1680944180122,
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]   level: 'INFO',
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]   messages: [ 'Info', { bool: false, undef: undefined } ],
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]     errno: -4058,
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]     code: 'ENOENT',
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]     syscall: 'open',
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
-[2023-04-08T08:56:20.162Z] [ERROR] [component2]   }
-[2023-04-08T08:56:20.162Z] [ERROR] [component2] }
-[2023-04-08T08:56:20.165Z] [ERROR] [component3] Failed to log to target 5: {
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]   timestamp: 1680944180123,
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]   level: 'WARN',
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]   messages: [
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     'Warn',
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     [ 'with', 'arrays' ],
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     42,
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     {
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]       a: [
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]         <ref *1> { b: [ [Circular *1] ] },
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]         <ref *2> [ <ref *1> { b: [Circular *2] } ]
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]       ]
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     }
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]   ],
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     errno: -4058,
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     code: 'ENOENT',
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     syscall: 'open',
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
-[2023-04-08T08:56:20.165Z] [ERROR] [component3]   }
-[2023-04-08T08:56:20.165Z] [ERROR] [component3] }
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong] Failed to log to target 5: {
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]   timestamp: 1680944180125,
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]   level: 'ERROR',
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]   messages: [
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]     'Error',
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]     SyntaxError: Something failed
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]         at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:118:38
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]         at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]   ],
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]     errno: -4058,
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]     code: 'ENOENT',
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]     syscall: 'open',
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong]   }
-[2023-04-08T08:56:20.171Z] [ERROR] [component4looong] }
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg] Failed to log to target 5: {
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]   timestamp: 1680944180127,
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]   level: 'FATAL',
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]   messages: [ 'Fatal', 1, undefined, null ],
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]     errno: -4058,
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]     code: 'ENOENT',
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]     syscall: 'open',
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg]   }
-[2023-04-08T08:56:20.180Z] [FATAL] [components/longgg] }
+[2023-05-01T16:51:43.267Z] [WARN] [component3] Warn [ 'with', 'arrays' ] 42 {
+[2023-05-01T16:51:43.267Z] [WARN] [component3]   a: [
+[2023-05-01T16:51:43.267Z] [WARN] [component3]     <ref *1> { b: [ [Circular *1] ] },
+[2023-05-01T16:51:43.267Z] [WARN] [component3]     <ref *2> [ <ref *1> { b: [Circular *2] } ]
+[2023-05-01T16:51:43.267Z] [WARN] [component3]   ]
+[2023-05-01T16:51:43.267Z] [WARN] [component3] }
+[2023-05-01T16:51:43.269Z] [ERROR] [component4looong] Error SyntaxError: Something failed
+[2023-05-01T16:51:43.269Z] [ERROR] [component4looong]     at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:118:38
+[2023-05-01T16:51:43.269Z] [ERROR] [component4looong]     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2023-05-01T16:51:43.274Z] [FATAL] [components/longgg] Fatal 1 undefined null
+[2023-05-01T16:51:43.284Z] [ERROR] [component1] Failed to log to target 5: {
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]   timestamp: '2023-05-01T16:51:43.259Z',
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]   level: 'TRACE',
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]   messages: [ 'Trace', 'stuff' ],
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]     errno: -4058,
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]     code: 'ENOENT',
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]     syscall: 'open',
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-05-01T16:51:43.284Z] [ERROR] [component1]   }
+[2023-05-01T16:51:43.284Z] [ERROR] [component1] }
+[2023-05-01T16:51:43.286Z] [ERROR] [component1] Failed to log to target 5: {
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]   timestamp: '2023-05-01T16:51:43.260Z',
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]   level: 'DEBUG',
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]   messages: [
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]     'Debug',
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]     <ref *1> Object [global] {
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       global: [Circular *1],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       queueMicrotask: [Function: queueMicrotask],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       clearImmediate: [Function: clearImmediate],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       setImmediate: [Function: setImmediate] {
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]         [Symbol(nodejs.util.promisify.custom)]: [Getter]
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       },
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       structuredClone: [Function: structuredClone],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       clearInterval: [Function: clearInterval],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       clearTimeout: [Function: clearTimeout],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       setInterval: [Function: setInterval],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       setTimeout: [Function: setTimeout] {
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]         [Symbol(nodejs.util.promisify.custom)]: [Getter]
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       },
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       atob: [Function: atob],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       btoa: [Function: btoa],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       performance: Performance {
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]         nodeTiming: PerformanceNodeTiming {
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           name: 'node',
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           entryType: 'node',
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           startTime: 0,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           duration: 99.95459997653961,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           nodeStart: 1.9055999517440796,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           v8Start: 4.172399997711182,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           bootstrapComplete: 24.576599955558777,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           environment: 13.887400031089783,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           loopStart: 31.66040003299713,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           loopExit: -1,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]           idleTime: 0.2593
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]         },
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]         timeOrigin: 1682959903190.995
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       },
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]       fetch: [AsyncFunction: fetch]
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]     }
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]   ],
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]     errno: -4058,
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]     code: 'ENOENT',
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]     syscall: 'open',
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-05-01T16:51:43.286Z] [ERROR] [component1]   }
+[2023-05-01T16:51:43.286Z] [ERROR] [component1] }
+[2023-05-01T16:51:43.292Z] [ERROR] [component2] Failed to log to target 5: {
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]   timestamp: '2023-05-01T16:51:43.267Z',
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]   level: 'INFO',
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]   messages: [ 'Info', { bool: false, undef: undefined } ],
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]     errno: -4058,
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]     code: 'ENOENT',
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]     syscall: 'open',
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-05-01T16:51:43.292Z] [ERROR] [component2]   }
+[2023-05-01T16:51:43.292Z] [ERROR] [component2] }
+[2023-05-01T16:51:43.293Z] [ERROR] [component3] Failed to log to target 5: {
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]   timestamp: '2023-05-01T16:51:43.267Z',
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]   level: 'WARN',
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]   messages: [
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     'Warn',
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     [ 'with', 'arrays' ],
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     42,
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     {
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]       a: [
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]         <ref *1> { b: [ [Circular *1] ] },
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]         <ref *2> [ <ref *1> { b: [Circular *2] } ]
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]       ]
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     }
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]   ],
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     errno: -4058,
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     code: 'ENOENT',
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     syscall: 'open',
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-05-01T16:51:43.293Z] [ERROR] [component3]   }
+[2023-05-01T16:51:43.293Z] [ERROR] [component3] }
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong] Failed to log to target 5: {
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]   timestamp: '2023-05-01T16:51:43.269Z',
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]   level: 'ERROR',
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]   messages: [
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]     'Error',
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]     SyntaxError: Something failed
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]         at file:///C:/Users/comp/Documents/workspace/JS/easy-node-logging/test/test.js:118:38
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]         at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]   ],
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]     errno: -4058,
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]     code: 'ENOENT',
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]     syscall: 'open',
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong]   }
+[2023-05-01T16:51:43.295Z] [ERROR] [component4looong] }
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg] Failed to log to target 5: {
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]   timestamp: '2023-05-01T16:51:43.274Z',
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]   level: 'FATAL',
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]   messages: [ 'Fatal', 1, undefined, null ],
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]   error: [Error: ENOENT: no such file or directory, open 'C:\Users\comp\Documents\workspace\JS\easy-node-logging\test\out\invalid\file_target.log'] {
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]     errno: -4058,
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]     code: 'ENOENT',
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]     syscall: 'open',
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]     path: 'C:\\Users\\comp\\Documents\\workspace\\JS\\easy-node-logging\\test\\out\\invalid\\file_target.log'
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg]   }
+[2023-05-01T16:51:43.297Z] [FATAL] [components/longgg] }

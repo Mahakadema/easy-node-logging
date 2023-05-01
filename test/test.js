@@ -148,6 +148,6 @@ await test("Text logs are as expected", () => {
 
 await test("HTTP requests sent", () => {
     server.close();
-    const validHttpDataRegex = /^{"timestamp":\d+,"level":"FATAL","component":"components","source":"longgg","msg":\["Fatal",1,"undefined",null\]}\n{"timestamp":\d+,"level":"FATAL","component":"components","source":"longgg","msg":\["Failed to log to target 5:",{"timestamp":\d+,"level":"FATAL","messages":\["Fatal",1,"undefined",null\],"error":{.*}}\]}\n$/;
+    const validHttpDataRegex = /^{"timestamp":"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z","level":"FATAL","component":"components","source":"longgg","msg":\["Fatal",1,"undefined",null\]}\n{"timestamp":"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z","level":"FATAL","component":"components","source":"longgg","msg":\["Failed to log to target 5:",{"timestamp":"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z","level":"FATAL","messages":\["Fatal",1,"undefined",null\],"error":{.*}}\]}\n$/;
     assert.match(httpReceivedData, validHttpDataRegex);
 });

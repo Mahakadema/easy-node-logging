@@ -126,7 +126,7 @@ function _log(targets, messages, level, logger, maxSourceLength) {
                         throw e;
                     case "LOG":
                         if (!logger.destroyed)
-                            return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { timestamp, level: levels[level], messages, error: e }], Math.min(level, levelNums.ERROR), logger, maxSourceLength);
+                            return _log(targets.map(v => ({ ...v, errorPolicy: "IGNORE" })), [`Failed to log to target ${i}:`, { timestamp: new Date(timestamp).toISOString(), level: levels[level], messages, error: e }], Math.min(level, levelNums.ERROR), logger, maxSourceLength);
                 }
             };
         })();
@@ -150,7 +150,7 @@ function format(messages, level, component, source, sourceColor, uniform, maxSou
     const maxCategoryLength = 5;
     if (format === "JSON") {
         return stringifySafe({
-            timestamp: timestamp,
+            timestamp: new Date(timestamp).toISOString(),
             level: levels[level],
             component: component,
             source: source,
